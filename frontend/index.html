@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nhận dạng biển số xe Việt Nam</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Nhận dạng biển số xe Việt Nam</h1>
+        <p>Chọn 1 ảnh → Xem ngay → Cắt & Đọc biển số</p>
+      </header>
+
+      <!-- 1. Khung upload ban đầu (sẽ ẩn khi đã chọn ảnh) -->
+      <section class="upload-section" id="uploadSection">
+        <input
+          type="file"
+          id="imageInput"
+          accept="image/jpeg,image/png,image/webp"
+        />
+
+        <!-- Khu vực đẹp đẽ để click / kéo thả -->
+        <label for="imageInput" class="custom-upload">
+          <svg
+            viewBox="0 0 24 24"
+            width="56"
+            height="56"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <p class="title">Kéo thả ảnh vào đây</p>
+          <p class="subtitle">
+            hoặc <span class="link">chọn từ máy tính</span>
+          </p>
+          <small>JPG, PNG, WEBP • Tối đa 5MB</small>
+        </label>
+      </section>
+
+      <!-- 2. Phần xem trước ảnh + các nút chức năng -->
+      <!-- PHẦN XEM TRƯỚC + KẾT QUẢ (2 cột 50%-50%) -->
+      <section
+        class="preview-section"
+        id="previewSection"
+        style="display: none"
+      >
+        <div class="preview-grid">
+          <!-- CỘT TRÁI: Ảnh gốc + thông tin + nút điều khiển -->
+          <div class="left-panel">
+            <h2>Ảnh đầu vào</h2>
+
+            <div class="image-wrapper">
+              <img id="previewImage" src="" alt="Ảnh xe gốc" />
+            </div>
+
+            <div class="info">
+              <p><strong>Tên file:</strong> <span id="fileName">-</span></p>
+              <p><strong>Kích thước:</strong> <span id="fileSize">-</span></p>
+            </div>
+
+            <div class="buttons">
+              <button class="btn-primary" id="btnCrop">A - Cắt biển số</button>
+              <button class="btn-success" id="btnRead">B - Đọc biển số</button>
+              <button
+                class="btn-secondary"
+                onclick="document.getElementById('imageInput').click()"
+              >
+                Chọn ảnh mới
+              </button>
+            </div>
+          </div>
+
+          <!-- CỘT PHẢI: Ảnh biển số đã cắt + Kết quả nhận dạng -->
+          <div class="right-panel">
+            <h2>Kết quả xử lý</h2>
+
+            <!-- Ảnh biển số đã cắt -->
+            <div class="cropped-container">
+              <img id="croppedPlate" src="" alt="Biển số đã cắt" />
+              <div class="placeholder" id="platePlaceholder">
+                <p>Nhấn <strong>A - Cắt biển số</strong> để xem kết quả</p>
+              </div>
+            </div>
+
+            <!-- Kết quả OCR (hiển thị ngay dưới ảnh cắt) -->
+            <div
+              class="result-box"
+              id="resultBox"
+              style="display: none; margin-top: 24px"
+            >
+              <h3>Biển số nhận dạng:</h3>
+              <div class="license-plate" id="licensePlateText">
+                Đang xử lý...
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 3. Modal ảnh biển số đã cắt -->
+    <div id="cropModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeCropModal()">x</span>
+        <h2>Biển số đã được cắt tự động</h2>
+        <img id="croppedPlate" src="" alt="Biển số đã cắt" />
+        <p>AI đã phát hiện và cắt chính xác vùng biển số</p>
+      </div>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
